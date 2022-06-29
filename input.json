@@ -1,7 +1,5 @@
-
 {
     "method": "GET",
-    "path": [
-        "final_grade","grade", "Marlen"],
-    "user": "Marlen"
+    "path": ["finance", "salary", "alice"],
+    "user": "alice"
 }

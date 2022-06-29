@@ -1,22 +1,20 @@
-package httpapi.authz 
+package httpapi.authz
 
-#This will be a grade example in which only the assigned professor will be able to view certain students grades
-
-#Daisy is Jose's and Moises' professor, meanwhile Shannon is Marlen's professor
-subordinates := {"Jose": [], "Moises": [], "Marlen": [], "Daisy": ["Jose", "Moises"],  "Shannon": ["Marlen"]}
+# bob is alice's manager, and betty is charlie's.
+subordinates := {"alice": [], "charlie": [], "bob": ["alice"], "betty": ["charlie"]}
 
 default allow := false
 
-allow
-{
+# Allow users to get their own salaries.
+allow {
     input.method == "GET"
-    input.path == ["final_grade","grade", input.user]
+    input.path == ["finance", "salary", input.user]
 }
 
-allow
-{
+# Allow managers to get their subordinates' salaries.
+allow {
     some username
     input.method == "GET"
-    input.path = ["final_grade","grade", username]
+    input.path = ["finance", "salary", username]
     subordinates[input.user][_] == username
 }
